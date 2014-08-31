@@ -1,6 +1,6 @@
 {
   "name": "gulp-cmd-nice",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "another cmd transport for gulp",
   "main": "index.js",
   "scripts": {

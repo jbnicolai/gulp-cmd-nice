@@ -42,7 +42,7 @@ var options = {
         ".tpl": CmdNice.UnderscoreTemplate
     },
     handlebars: {
-        id: 'alinw/handlebars/1.3.0/runtime',
+        id: 'gallery/handlebars/1.0.2/runtime',
         knownHelpers: [
             "if",
             "unless",
