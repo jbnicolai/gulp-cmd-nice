@@ -16,7 +16,7 @@ var GulpUtil = require("gulp-util");
 var through = require('through2');
 var chalk = require("chalk");
 
-var CmdNice = require("grunt-cmd-nice");
+var CmdNice = require("cmd-nice");
 var Handlebars = require("handlebars");
 var verboseTemplate = Handlebars.compile(
     "create debug: {{{src}}}"

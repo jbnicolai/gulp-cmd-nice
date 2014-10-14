@@ -16,7 +16,7 @@ var GulpUtil = require("gulp-util");
 var through = require('through2');
 var chalk = require("chalk");
 
-var CmdNice = require("grunt-cmd-nice");
+var CmdNice = require("cmd-nice");
 var Handlebars = require("handlebars");
 var verboseTemplate = Handlebars.compile(
     "transporting: {{{src}}}"
@@ -42,12 +42,8 @@ var options = {
         ".tpl": CmdNice.UnderscoreTemplate
     },
     handlebars: {
-        id: 'gallery/handlebars/1.0.2/runtime',
-        knownHelpers: [
-            "if",
-            "unless",
-            "each"
-        ],
+        id: 'alinw/handlebars/1.3.0/runtime',
+        knownHelpers: [],
         knownHelpersOnly: false
     },
     sassOptions: {},
