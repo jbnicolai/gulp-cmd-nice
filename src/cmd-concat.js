@@ -29,6 +29,18 @@ var options = {
     separator: ";",
     useCache: false,
     paths: [],
+    alias: {},
+    aliasPaths: {},
+    parsers: {
+        ".handlebars": CmdNice.HandlebarsTemplate,
+        ".json": CmdNice.Json,
+        ".less": CmdNice.LessStyle,
+        ".scss": CmdNice.SassStyle,
+        ".js": CmdNice.Script,
+        ".css": CmdNice.Style,
+        ".html": CmdNice.Text,
+        ".tpl": CmdNice.UnderscoreTemplate
+    },
     success: function() {},
     fail: function() {}
 };
