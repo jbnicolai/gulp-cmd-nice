@@ -25,33 +25,7 @@ var shutils = require("shutils");
 var filesystem = shutils.filesystem;
 var error = require("./error");
 
-var options = {
-    useCache: false,
-    rootPath: process.cwd(),
-    paths: [],
-    alias: {},
-    aliasPaths: {},
-    parsers: {
-        ".handlebars": CmdNice.HandlebarsTemplate,
-        ".json": CmdNice.Json,
-        ".less": CmdNice.LessStyle,
-        ".scss": CmdNice.SassStyle,
-        ".js": CmdNice.Script,
-        ".css": CmdNice.Style,
-        ".html": CmdNice.Text,
-        ".tpl": CmdNice.UnderscoreTemplate
-    },
-    handlebars: {
-        id: 'alinw/handlebars/1.3.0/runtime',
-        knownHelpers: [],
-        knownHelpersOnly: false
-    },
-    sassOptions: {},
-    lessOptions: {},
-    cssOptions: {},
-    success: null,
-    fail: null
-};
+var options = require("./transport-config");
 
 var parsers = {};
 
