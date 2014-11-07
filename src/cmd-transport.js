@@ -33,6 +33,7 @@ var parsers = {};
 
 var transport = function(file, encoding, callback) {
     var self = this;
+    console.log(file.path);
 
     if (file.isNull()) {
         self.push(file);
@@ -46,15 +47,15 @@ var transport = function(file, encoding, callback) {
         }));
     }
 
+    var content = file.contents.toString();
+    var extName = path.extname(file.path);
+
     if (!_.has(options.parsers, extName)) {
         return callback(error("Can not find any parsers: " + file.path, {
             fileName: file.path,
             showStack: false
         }));
     }
-
-    var content = file.contents.toString();
-    var extName = path.extname(file.path);
 
     var parser = null;
     if (_.has(parsers, extName)) {
