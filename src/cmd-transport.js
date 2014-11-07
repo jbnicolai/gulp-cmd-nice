@@ -33,7 +33,6 @@ var parsers = {};
 
 var transport = function(file, encoding, callback) {
     var self = this;
-    console.log(file.path);
 
     if (file.isNull()) {
         self.push(file);
