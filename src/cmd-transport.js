@@ -18,23 +18,27 @@ var chalk = require("chalk");
 
 var CmdNice = require("cmd-nice");
 var Handlebars = require("handlebars");
-var verboseTemplate = Handlebars.compile(
-    "transporting: {{{src}}}"
-);
 var shutils = require("shutils");
 var filesystem = shutils.filesystem;
 var error = require("./error");
 
 var options = require("./transport-config");
 
+var verboseTemplate = Handlebars.compile(
+    "transporting: {{{src}}}"
+);
+
+/* 缓存parses */
 var parsers = {};
 
 var transport = function(file, encoding, callback) {
     var self = this;
+
     if (file.isNull()) {
         self.push(file);
         return callback();
     }
+
     if (file.isStream()) {
         return callback(error("Streaming not supported", {
             fileName: file.path,
@@ -42,30 +46,34 @@ var transport = function(file, encoding, callback) {
         }));
     }
 
-    var content = file.contents.toString();
-    var extName = path.extname(file.path);
     if (!_.has(options.parsers, extName)) {
         return callback(error("Can not find any parsers: " + file.path, {
             fileName: file.path,
             showStack: false
         }));
     }
+
+    var content = file.contents.toString();
+    var extName = path.extname(file.path);
+
     var parser = null;
     if (_.has(parsers, extName)) {
         parser = parsers[extName];
-    }
-    else {
+    } else {
         parser = new options.parsers[extName](options);
         parsers[extName] = parser;
     }
+
     GulpUtil.log(verboseTemplate({
         src: file.path
     }));
+
     parser.execute({
         src: path.normalize(file.path),
         content: content
     }).then(function(code) {
         file.contents = new Buffer(code);
+
         if (_.isFunction(options.success)) {
             options.success({
                 path: file.path
@@ -75,6 +83,7 @@ var transport = function(file, encoding, callback) {
         if (_.isObject(errorCode) && _.isString(errorCode.message)) {
             GulpUtil.log(chalk.red(errorCode.message));
         }
+
         if (_.isFunction(options.fail)) {
             options.fail({
                 path: file.path,
@@ -82,6 +91,10 @@ var transport = function(file, encoding, callback) {
             });
         }
     }).finally(function() {
+        if (_.isFunction(options.fail)) {
+            options.total();
+        }
+
         self.push(file);
         callback();
     });
