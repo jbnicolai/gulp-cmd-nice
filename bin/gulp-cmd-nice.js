@@ -7,6 +7,6 @@ var path = require('path');
 
 var task = require(path.join(process.cwd(), "gulpfile.js"));
 task(gulp, function(){
-    console.log(arguments);
+
 });
 gulp.start(['default']);

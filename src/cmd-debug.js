@@ -67,6 +67,10 @@ var createDebug = function(file, encoding, callback) {
             });
         }
     }).finally(function() {
+        if (_.isFunction(options.total)) {
+            options.total();
+        }
+
         self.push(file);
         callback();
     });

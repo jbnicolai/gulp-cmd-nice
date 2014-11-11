@@ -91,7 +91,7 @@ var transport = function(file, encoding, callback) {
             });
         }
     }).finally(function() {
-        if (_.isFunction(options.fail)) {
+        if (_.isFunction(options.total)) {
             options.total();
         }
 
