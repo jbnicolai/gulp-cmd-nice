@@ -30,6 +30,7 @@ var options = {
     useCache: false,
     paths: [],
     transportConfig: require("./transport-config"),
+    total: function(){},
     success: function() {},
     fail: function() {}
 };
@@ -72,6 +73,10 @@ var doConcat = function(file, encoding, callback) {
             });
         }
     }).finally(function() {
+        if (_.isFunction(options.total)) {
+            options.total();
+        }
+
         self.push(file);
         callback();
     });
